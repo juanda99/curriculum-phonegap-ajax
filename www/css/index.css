@@ -1,0 +1,9 @@
+.big {
+  font-size: 90px;
+}
+
+@media (min-width: 992px) {
+  .mismaAltura {
+    min-height: 385px;
+  }
+}
