@@ -70,9 +70,50 @@ $("#frmContactar").click(function (e) {
 
 
 
+$("#btnViewIndex").click(function (e) { 
+    e.preventDefault();
+    $("#vista").load("./index.html");
+    $(".nav li").removeClass("active");
+    $("#btnViewIndex").addClass("active");
+});
+
+$("#btnViewHistoria").click(function (e) { 
+    e.preventDefault();
+    $("#vista").load("./historia.html");
+    $(".nav li").removeClass("active");
+    $("#btnViewHistoria").addClass("active");
+});
+$("#btnViewServicios").click(function (e) { 
+    e.preventDefault();
+    $("#vista").load("./servicios.html", function(){
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/api/cursos",
+            dataType: "json"
+        })
+        .done(function (cursos) {
+            var htmlCursos="";
+            $.each(cursos, function (index, curso) { 
+                htmlCursos= `${htmlCursos}<h2>${curso.titulo}</h2><p>${curso.desc}</p>`
+            });
+            // console.log("ha ido bien");
+            // console.log(htmlCursos)
+            $("#cursos").html(htmlCursos);
+        })
+        .fail(function () {
+            alert('Error obteniendo cursos');
+        })
+        .always(function () {
+            console.log("______________complete_______________________");
+        });
+    });
+
+
+    $(".nav li").removeClass("active");
+    $("#btnViewServicios").addClass("active");
+});
 $("#btnViewContactar").click(function (e) { 
     e.preventDefault();
-    alert("cargando datos...")
     $("#vista").load("./contactar.html");
     $(".nav li").removeClass("active");
     $("#btnViewContactar").addClass("active");
